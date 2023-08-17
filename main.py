@@ -6,7 +6,11 @@ import pypresence
 from dotenv import load_dotenv
 import os
 
+
 load_dotenv()
+
+buttons = [{'label': 'My socials', 'url': 'https://e-z.bio/rionnag'},
+           {'label': 'PC Perfomance', 'url': 'https://www.userbenchmark.com/UserRun/63476314'}]
 
 appsTimes = {}
 
@@ -36,8 +40,6 @@ RPC = Presence(client_id)
 RPC.connect()
 print('Started')
 
-buttons = [{'label': 'My socials', 'url': 'https://e-z.bio/rionnag'},
-           {'label': 'PC Perfomance', 'url': 'https://www.userbenchmark.com/UserRun/63476314'}]
 
 while True:
     try:
