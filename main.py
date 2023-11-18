@@ -102,7 +102,7 @@ types = cycle([
     {'fun': get_amount_of_processes, 'name': 'Processes open', 'state': '{} tasks'},
     {'fun': get_cpu_usage, 'name': 'CPU usage', 'state': '{} being used'},
     {'fun': get_commands_used, 'name': 'Commands used', 'state': '{} commands'},
-    {'fun': get_last_command, 'name': 'Last command', 'state': '{}'}
+    {'fun': get_last_command, 'name': 'Last command', 'state': '`{}`'}
 ])
 
 
@@ -111,6 +111,7 @@ def main():
         client_id = os.getenv("CLIENTID")
         RPC = Presence(client_id)
         RPC.connect()
+        RPC.clear()
         print('Started')
         while True:
             boottime = get_computerDur()
@@ -118,12 +119,14 @@ def main():
             for i in range(5):
                 fundata = todo['fun']()
                 string = todo['state'].format(fundata)
-
+                if len(string) < 2:
+                    string += '  '
                 RPC.update(large_text='insane computer',
                            large_image='logo', details=todo['name'], state=truncate_text(string), start=boottime, buttons=buttons)
                 time.sleep(1)
     except Exception as e:
         print(f'Error: {e}')
+        RPC.clear()
         return
 
 
